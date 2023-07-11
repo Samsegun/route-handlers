@@ -1,8 +1,7 @@
-const express = require("express");
-const path = require("path");
+import express from "express";
+import path from "path";
 
 const app = express();
-
 app.get("/", (req, res) => {
     console.log("hello from express");
 
@@ -11,4 +10,4 @@ app.get("/", (req, res) => {
     // res.json({ message: "hello" });
 });
 
-module.exports = app;
+export default app;
