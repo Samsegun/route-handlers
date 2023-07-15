@@ -1,4 +1,13 @@
 import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
+
+export const comparePassword = (password, hash) => {
+    return bcrypt.compare(password, hash);
+};
+
+export const hashPassword = password => {
+    return bcrypt.hash(password, 5);
+};
 
 export const createJWT = user => {
     const token = jwt.sign(
@@ -33,7 +42,7 @@ export const protect = (req, res, next) => {
     } catch (error) {
         console.log(error);
         res.status(401);
-        res.json({ message: "No valid token" });
+        res.json({ message: "No valid token on user" });
         return;
     }
 };

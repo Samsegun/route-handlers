@@ -6,7 +6,7 @@ const router = Router();
  * Product routes
  */
 router.get("/product", (req, res) => {
-    res.json({ message: "message" });
+    res.json({ message: "product message" });
 });
 router.get("/product/:id", () => {});
 router.post("/product", () => {});
