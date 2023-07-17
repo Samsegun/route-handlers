@@ -1,4 +1,3 @@
-import { error } from "console";
 import prisma from "../db";
 import { createJWT, comparePassword, hashPassword } from "../modules/auth";
 
