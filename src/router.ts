@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { body, oneOf } from "express-validator";
+import { body } from "express-validator";
 import { handleInputErrors } from "./modules/middleware";
 import {
     createProduct,
@@ -8,7 +8,13 @@ import {
     getProducts,
     updateProduct,
 } from "./handlers/product";
-import { getOneUpdate } from "./handlers/update";
+import {
+    createUpdate,
+    deleteUpdate,
+    getOneUpdate,
+    getUpdates,
+    updateUpdate,
+} from "./handlers/update";
 
 const router = Router();
 
@@ -34,30 +40,26 @@ router.delete("/product/:id", deleteProduct);
 /**
  * Update routes
  */
-router.get("/update", (req, res) => {
-    res.json({ message: "update" });
-});
-router.get("/update/:id", () => {});
+router.get("/update", getUpdates);
+router.get("/update/:id", getOneUpdate);
 router.post(
     "/update",
     body("title").exists().isString(),
     body("body").exists().isString(),
     body("productId").exists().isString(),
     handleInputErrors,
-    getOneUpdate
+    createUpdate
 );
 router.put(
     "/update/:id",
     body("title").optional(),
-    body("body").optional().isString(),
-    body("status").isIn(["IN_PROGRESS", "SHIPPED", "DEPRECATED"]),
+    body("body").optional(),
+    body("status").isIn(["IN_PROGRESS", "SHIPPED", "DEPRECATED"]).optional(),
     body("version").optional(),
     handleInputErrors,
-    (req, res) => {
-        res.json({ message: req.body });
-    }
+    updateUpdate
 );
-router.delete("/update/:id", () => {});
+router.delete("/update/:id", deleteUpdate);
 
 /**
  * UpdatePoint routes
